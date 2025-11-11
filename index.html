@@ -42,6 +42,7 @@
       height: 300px;
       right: -120px;
       animation: movePipe linear forwards;
+      border: 2px solid;
     }
 
     @keyframes movePipe {
@@ -85,39 +86,6 @@
       margin-top: 10px;
     }
 
-    /* Floating clouds for background */
-    .cloud {
-      position: absolute;
-      width: 120px;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      top: 50px;
-      animation: moveClouds 30s linear infinite;
-    }
-
-    .cloud::before,
-    .cloud::after {
-      content: '';
-      position: absolute;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-    }
-
-    .cloud::before {
-      width: 80px;
-      height: 80px;
-      top: -20px;
-      left: 40px;
-    }
-
-    .cloud::after {
-      width: 60px;
-      height: 60px;
-      top: 10px;
-      left: 80px;
-    }
-
     .hide{
       display: none;
     }
@@ -152,7 +120,7 @@
     let birdY = window.innerHeight / 2;
     let velocity = 0;
     let gravity = 0.1;
-    let jump = -4;
+    let jump = -3;
     let gameRunning = false;
     let pipeInterval, gameLoop;
     let score = 0;
@@ -170,7 +138,7 @@
       gameRunning = true;
 
       gameLoop = setInterval(updateBird, 16);
-      pipeInterval = setInterval(createPipe, 1800); // more horizontal gap
+      pipeInterval = setInterval(createPipe, window.innerWidth < 500 ? 2000 : 1800); // more horizontal gap
     }
 
     function updateBird() {
@@ -210,7 +178,7 @@
     function createPipe() {
       if (!gameRunning) return;
 
-      const gap = 180; // increased vertical gap
+      const gap = 200; // increased vertical gap
       const minTop = 80;
       const maxTop = window.innerHeight - 300 - gap;
       const topHeight = Math.floor(Math.random() * (maxTop - minTop) + minTop);
